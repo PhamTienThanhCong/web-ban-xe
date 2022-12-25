@@ -29,7 +29,7 @@ hbs.registerHelper('screamIt', (text) => { //ViewHelper
   return text.toUpperCase();
 });
 
-app.listen(config.server.port, (err) => {
+app.listen(process.env.PORT || 3000, (err) => {
   if(err) {
     process.exit(1);
   }
@@ -42,6 +42,9 @@ app.listen(config.server.port, (err) => {
       console.log(r.route.stack.method + "    " + r.route.path)
     }
   })
+
+  console.log('Server is running on port 3000');
+
 });
 
 module.exports = app;
