@@ -1,12 +1,9 @@
-const logger = require('../utils/logger');
-
 // write function return all data from Vietnamese using async/await
 const list = async (language) => {
     try {
         const data = await language.find();
         return data;
     } catch (error) {
-        logger.error(error);
     }
 };
 
@@ -16,7 +13,6 @@ const find_word = async (id, language) => {
         const data = await language.findById(id);
         return data;
     } catch (error) {
-        logger.error(error);
     }
 };
 
@@ -26,7 +22,6 @@ const find_translates = async (type, value, language) => {
         const data = await language.find({ id_tv: value });
         return data;
     } catch (error) {
-        logger.error(error);
     }
 }
 
@@ -35,7 +30,6 @@ const find_translates2 = async (type, value, language) => {
         const data = await language.find({ id_tt: value });
         return data;
     } catch (error) {
-        logger.error(error);
     }
 }
 
@@ -56,7 +50,6 @@ const count = async (value, Translate) => {
         const data = await Translate.find({ id_tv: value });
         return data.length;
     } catch (error) {
-        logger.error(error);
     }
 }
 const count2 = async (value, Translate) => {
@@ -64,7 +57,6 @@ const count2 = async (value, Translate) => {
         const data = await Translate.find({ id_tt: value });
         return data.length;
     } catch (error) {
-        logger.error(error);
     }
 }
 

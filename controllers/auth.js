@@ -1,9 +1,7 @@
-const logger = require('../utils/logger');
 const auth = require('../models/auth');
 
 function login(req, res) {
   // render the login page
-  logger.info('login');
   res.render('login', { title: 'Express' });
 }
 
@@ -13,7 +11,6 @@ function login_activity(req, res) {
     // check if the username and password are correct in the database
     auth.findOne({ username, password }, (err, data) => {
         if (err) {
-            logger.error(err);
             res.status(500).send("Error");
         } else {
             if (data) {

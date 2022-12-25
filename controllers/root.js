@@ -1,4 +1,3 @@
-const logger = require('../utils/logger');
 const my_function = require('./function');
 const Vietnamese = require('../models/vietnam');
 const Foreign_language = require('../models/foreign_language');
@@ -12,7 +11,6 @@ const getLanguage = async () => {
       const data = await Language.find({});
       return data;
   } catch (error) {
-      logger.error(error);
   }
 
 }
@@ -25,7 +23,6 @@ const listLanguage = async (req, res) => {
     const languages = await getLanguage();
     res.render('list_language', { languages });
   } catch (error) {
-    logger.error(error);
   }
 }
 
@@ -43,7 +40,6 @@ const addLanguage = async (req, res) => {
     try {
       await newLanguage.save();
     } catch (error) {
-      logger.error(error);
     }
     // redirect to list language page
     return res.redirect('/create-langue');
@@ -55,7 +51,6 @@ const deleteLanguage = async (req, res) => {
   try {
     await Language.findByIdAndDelete(id);
   } catch (error) {
-    logger.error(error);
   }
   return res.redirect('/create-langue');
 }
@@ -65,14 +60,12 @@ const index = async (req, res) => {
     return res.redirect('/login');
   }
   // render the index page
-  logger.info('index');
   let languages = await getLanguage();
   res.render('index', { languages });
 }
 
 const translate = async (req, res) => {
   // render the index page
-  logger.info('find_word');
   let languages = await getLanguage();
   res.render('find_word', { languages });
 }
@@ -214,7 +207,6 @@ const addList = async (text1, text2, language, description) => {
       try {
         await vietnamese_document.save();
       } catch (error) {
-        logger.error(error);
       }
       id_tv = vietnamese_document._id;
     }  
@@ -225,7 +217,6 @@ const addList = async (text1, text2, language, description) => {
       try {
         await foreign_language_document.save();
       } catch (error) {
-        logger.error(error);
       }
       id_tt = foreign_language_document._id;
     }
@@ -238,7 +229,6 @@ const addList = async (text1, text2, language, description) => {
     try {
       await translate_document.save();
     } catch (error) {
-      logger.error(error);
     }
   }
 
@@ -259,7 +249,6 @@ const delete_list = async (req, res) => {
   try {
     await Translate.deleteOne({ _id: id });
   } catch (error) {
-    logger.error(error);
   }
 
   // count number of id_tv and id_tt in Translate
@@ -274,7 +263,6 @@ const delete_list = async (req, res) => {
     try {
       await Vietnamese.deleteOne({ _id: id_tv });
     } catch (error) {
-      logger.error(error);
     }
     tv_delete = true;
   }
@@ -282,7 +270,6 @@ const delete_list = async (req, res) => {
     try {
       await Foreign_language.deleteOne({ _id: id_tt });
     } catch (error) {
-      logger.error(error);
     }
   }
   return res.send({
