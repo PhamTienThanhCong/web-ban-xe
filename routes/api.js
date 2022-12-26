@@ -9,6 +9,8 @@ router.post('/login', auth.login);
 router.get('/logout', auth.logout);
 router.delete('/delete/:id', auth.deleteUser);
 router.put('/updateUser/:id', auth.updateUser);
-router.get('/list', auth.getListUser);
+router.get('/list/:role', auth.getListUser);
+router.get('/view/:id', auth.viewUser);
+router.get('/all', auth.getAllUser);
 
 module.exports = router;

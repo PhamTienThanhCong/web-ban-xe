@@ -41,7 +41,7 @@ function register(req, res) {
 //update user
 function updateUser(req, res) {
     const { id } = req.params;
-    const { name, phone, email, gender, birthday, photo, address, role, password } = req.body;
+    let { name, phone, email, gender, birthday, photo, address, role, password } = req.body;
     // check password
     user.findById(id, (err, data) => {
         if (err) {
@@ -49,6 +49,28 @@ function updateUser(req, res) {
             res.status(500).send({ message: 'Error when update user' });
         } else {
             if (data) {
+                // check if data is null then set old data
+                if (name == null) {
+                    name = data.name;
+                }
+                if (phone == null) {
+                    phone = data.phone;
+                }
+                if (email == null) {
+                    email = data.email;
+                }
+                if (birthday == null) {
+                    birthday = data.birthday;
+                }
+                if (photo == null) {
+                    photo = data.photo;
+                }
+                if (address == null) {
+                    address = data.address;
+                }
+                if (role == null) {
+                    role = data.role;
+                }
                 // update user
                 user.findByIdAndUpdate(id, {
                     name,
@@ -98,6 +120,18 @@ function login(req, res) {
     });
 }
 
+// view user
+function viewUser(req, res) {
+    const { id } = req.params;
+    user.findById(id, (err, data) => {
+        if (err) {
+            res.status(500).send({ message: 'Error when view user' });
+        } else {
+            res.status(200).send(data);
+        }
+    });
+}
+
 // delete user
 function deleteUser(req, res) {
     const { id } = req.params;
@@ -133,10 +167,31 @@ function test(req, res) {
 
 // get list user
 function getListUser(req, res) {
+    // get role in params
+    const { role } = req.params;
+    // find all user for role
+    user.find ({ role: role }, (err, data) => {
+        if (err) {
+            res.status(500).send({ message: 'Error when get list user' });
+        } else {
+            // hidden password
+            data.forEach(element => {
+                element.password = '********';
+            });
+            res.status(200).send(data);
+        }
+    });
+}
+
+// get all user
+function getAllUser(req, res) {
     user.find({}, (err, data) => {
         if (err) {
             res.status(500).send({ message: 'Error when get list user' });
         } else {
+            data.forEach(element => {
+                element.password = '********';
+            });
             res.status(200).send(data);
         }
     });
@@ -149,5 +204,7 @@ module.exports = {
     deleteUser,
     login,
     getListUser,
+    viewUser,
+    getAllUser,
     test
 }
