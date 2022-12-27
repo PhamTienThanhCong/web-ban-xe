@@ -2,8 +2,8 @@ const api_user = require('./api/api_user');
 const api_appointment = require('./api/api_appointment');
 const api_service = require('./api/api_service');
 const api_order = require('./api/api_order');
-
 const view_admin = require('./view/admin/admin');
+const view_user = require('./view/home');
 
 module.exports = (app) => {
   // api routes
@@ -14,6 +14,7 @@ module.exports = (app) => {
 
   // view routes
   app.use('/admin', view_admin);
+  app.use('/', view_user);
 
   // other routes
   app.get('/', (req, res) => {

@@ -76,6 +76,23 @@ async function getAllOrder(req, res) {
         console.log(error);
     }
 }
+// get order by day 
+async function getOrderDay(req, res) {
+    const { date } = req.body;
+    try {
+        order
+            .find({ date: date })
+            .exec((err, data) => {
+                if (err) {
+                    res.json({ status: 500, message: "Lấy danh sách đơn hàng thất bại!" });
+                } else {
+                    res.json({ status: 200, message: 'Lấy danh sách đơn hàng thành công!', data: data });
+                }
+            });
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 // delete order by id
 async function deleteOrderById(req, res) {
@@ -128,5 +145,6 @@ module.exports = {
     createOrder,
     getAllOrder,
     deleteOrderById,
+    getOrderDay,
     viewOrder
 }

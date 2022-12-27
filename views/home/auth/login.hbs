@@ -1,0 +1,101 @@
+
+
+<!DOCTYPE html>
+<html class="h-100" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Đăng nhập</title>
+    <link href="/public/css/style.css" rel="stylesheet">
+    <link href="/public/plugins/sweetalert/css/sweetalert.css" rel="stylesheet">
+    
+</head>
+
+<body class="h-100">
+
+    <div id="preloader" style="background-color: #ffffff80;">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+
+    <div class="login-form-bg h-100">
+        <div class="container h-100">
+            <div class="row justify-content-center h-100">
+                <div class="col-xl-6">
+                    <div class="form-input-content">
+                        <div class="card login-form mb-0">
+                            <div class="card-body pt-5">
+                                <h4 class="text-center">Đăng nhập tài khoản</h4>
+        
+                                <form class="mt-5 mb-5 login-input" id="login-form" method="post">
+                                    <div class="form-group">
+                                        <input type="text" name="phone" class="form-control" placeholder="Số điện thoại">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="password" class="form-control" placeholder="Mật khẩu">
+                                    </div>
+                                    <button class="btn login-form__btn submit w-100">Đăng nhập</button>
+                                </form>
+                                <a class="mt-5" href="/">Trở lại trang chủ</a>
+                                <p class="login-form__footer">Bạn không có tài khoản? <a href="/register" class="text-primary">đăng kí</a> ngay</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="public/plugins/common/common.min.js"></script>
+    <script src="public/js/custom.min.js"></script>
+    <script src="public/js/settings.js"></script>
+    <script src="public/js/gleek.js"></script>
+    <script src="public/js/styleSwitcher.js"></script>
+    <script src="public/plugins/sweetalert/js/sweetalert.min.js"></script>
+    <script src="public/plugins/sweetalert/js/sweetalert.init.js"></script>
+</body>
+
+<script>
+    $(document).ready(function () {
+        $('#login-form').submit(function (e) {
+            e.preventDefault();
+            document.getElementById("preloader").style.display = "block";
+            if ($('input[name="phone"]').val() == '') {
+                swal("Thông báo", "Vui lòng nhập số điện thoại", "error");
+            }else if ($('input[name="password"]').val() == '') {
+                swal("Thông báo", "Vui lòng nhập mật khẩu", "error");
+            }else{
+                $.ajax({
+                    url: '/api/login',
+                    type: 'POST',
+                    data: {
+                        phone: $('input[name=phone]').val(),
+                        password: $('input[name=password]').val()
+                    },
+                    success: function (data) {
+                        document.getElementById("preloader").style.display = "none";
+                        swal("Thông báo", "Đăng nhập thành công", "success");
+                        setTimeout(function () {
+                            if (data.role != 4) {
+                                window.location.href = "/admin";
+                            }else{
+                                window.location.href = "/";
+                            }
+                        }, 2000);
+                    },
+                    error: function (data) {
+                        document.getElementById("preloader").style.display = "none";
+                        swal("Sai tài khoản", "Mật khẩu hoặc tài khoản không đúng", "error");
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+</html>

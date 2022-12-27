@@ -1,0 +1,110 @@
+
+
+<!DOCTYPE html>
+<html class="h-100" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Đăng kí</title>
+    <link href="/public/css/style.css" rel="stylesheet">
+    <link href="/public/plugins/sweetalert/css/sweetalert.css" rel="stylesheet">
+    
+</head>
+
+<body class="h-100">
+
+    <div id="preloader" style="background-color: #ffffff80;">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+
+    <div class="login-form-bg h-100">
+        <div class="container h-100">
+            <div class="row justify-content-center h-100">
+                <div class="col-xl-6">
+                    <div class="form-input-content">
+                        <div class="card login-form mb-0">
+                            <div class="card-body pt-5">
+                                
+                                    <a class="text-center" href="#"> <h4>Đăng kí tài khoản mới</h4></a>
+        
+                                <form class="mt-5 mb-5 login-input" id="register">
+                                    <div class="form-group">
+                                        <input type="text" name="name" class="form-control"  placeholder="Họ Và Tên" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Giới tính:</label>
+                                        <select name="gender" class="form-control" id="sel1">
+                                            <option value="1">Nam</option>
+                                            <option value="0">Nữ</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="phone" class="form-control"  placeholder="Số điện thoại" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="password" class="form-control" placeholder="Mật khâủ" required>
+                                    </div>
+                                    <button class="btn login-form__btn submit w-100">Đăng kí</button>
+                                </form>
+                                    <p class="mt-5 login-form__footer">Đã có tài khoản <a href="/login" class="text-primary">đăng nhập </a> ngay</p>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="public/plugins/common/common.min.js"></script>
+    <script src="public/js/custom.min.js"></script>
+    <script src="public/js/settings.js"></script>
+    <script src="public/js/gleek.js"></script>
+    <script src="public/js/styleSwitcher.js"></script>
+
+    <script src="public/plugins/sweetalert/js/sweetalert.min.js"></script>
+    <script src="public/plugins/sweetalert/js/sweetalert.init.js"></script>
+</body>
+    <script>
+        $(document).ready(function(){
+            $('#register').submit(function(e){
+                e.preventDefault();
+                document.getElementById("preloader").style.display = "block";
+                $.ajax({
+                    url: '/api/register',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function(data){
+                        document.getElementById("preloader").style.display = "none";
+                        swal({
+                            title: "Thành công",
+                            text: "Đăng kí thành công",
+                            type: "success",
+                            confirmButtonClass: "btn btn-confirm mt-2"
+                        });
+                        setTimeout(function(){
+                            window.location.href = '/login';
+                        }, 2000);
+                    },
+                    error: function(err){
+                        console.log(err);
+                        swal({
+                            title: "Thất bại",
+                            text: err.responseJSON.message,
+                            type: "error",
+                            confirmButtonClass: "btn btn-confirm mt-2"
+                        });
+                        document.getElementById("preloader").style.display = "none";
+                    }
+                });
+            });
+        });
+    </script>
+</html>

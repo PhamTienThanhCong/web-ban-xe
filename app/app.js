@@ -6,7 +6,7 @@ const config = require('../config/index');
 const app = express();
 const bodyparser = require('body-parser');
 //Setup middleware
-hbs.registerPartials(__dirname + '/views/partials') // partials view
+hbs.registerPartials(__dirname + './../views/partials') // partials view
 app.set('view engine', 'hbs'); // engine view
 
 app.use(bodyparser.urlencoded());

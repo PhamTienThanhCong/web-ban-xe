@@ -6,11 +6,10 @@ function register(req, res) {
     // check if phone exist
     user.findOne ({ phone: phone }, (data, err) => {
         if (err) {
-            res.status(500).send({ message: 'Error when register user' });
-            console.log(err)
+            res.status(500).send({ status: "error", message: 'Lỗi khi tạo người dùng' });
         } else {
             if (data) {
-                res.status(500).send({ message: 'Phone already exist' , data: data});
+                res.status(500).send({ status: "error", message: 'Số điện thoại đã được đăng kí'});
             } else {
                 // create new user
                 const newUser = new user({
@@ -25,14 +24,13 @@ function register(req, res) {
                     newUser.save((data, err) => {
                         if (err) {
                             // console.log(err);
-                            res.status(500).send({ message: 'Error when register user' });
+                            res.status(500).send({ status: "error", message: 'Lỗi khi tạo người dùng' });
                         } else {
-                            res.status(200).send({ message: 'Register successfully' });
+                            res.status(200).send({ status: "success", message: 'Đăng kí thành công' });
                         }
                     });
                 } catch (error) {
-                    console.log(error);
-                    res.status(500).send({ message: 'Error when register user' });
+                    res.status(500).send({ status: "error", message: 'Lỗi khi tạo người dùng' });
                 }
             }
         }
@@ -108,8 +106,11 @@ function login(req, res) {
                 // check password
                 if (data.password === password) {
                     // create session
+                    if (!data.photo || data.photo == '' || data.photo == null || data.photo == 'null') {
+                        data.photo = 'default.jpg';
+                    }
                     req.session.user = data;
-                    res.status(200).send({ message: 'Login successfully' });
+                    res.status(200).send({ message: 'Login successfully', role: data.role });
                 } else {
                     res.status(500).send({ message: 'Password is incorrect' });
                 }
@@ -152,8 +153,7 @@ function deleteUser(req, res) {
 // logout remove session
 function logout(req, res) {
     req.session.destroy();
-    // res.redirect('/login');
-    res.status(200).send({ message: 'Logout successfully' });
+    res.redirect('/');
 }
 
 // test session

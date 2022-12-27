@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Trang chủ</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link href="/public/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+    {{!-- load --}}
+    <div id="preloader" style="background-color: #ffffff80;">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    {{!-- load --}}
+
+    <div id="main-wrapper">
+
+        {{> header }}
+
+        {{> slideBarNv }}
+       
+        <div class="content-body">
+            <!-- row -->
+            
+            <div class="container-fluid">
+                {{!-- Thông tin tổng quan --}}
+                {{!-- danh sách hẹn --}}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="active-member">
+                                    <div class="table-responsive">
+                                        <div class="general-button">
+                                            <button type="button" class="btn mb-1 btn-flat btn-outline-primary" onclick="getAppointment(1)">Đang chờ</button>
+                                            <button type="button" class="btn mb-1 btn-flat btn-outline-primary" onclick="getAppointment(2)">Đã xác nhận</button>
+                                            <button type="button" class="btn mb-1 btn-flat btn-outline-primary" onclick="getAppointment(3)">Đã hoàn thành</button>
+                                            <button type="button" class="btn mb-1 btn-flat btn-outline-primary" onclick="getAppointment(4)">Đã hủy</button>
+                                        </div>
+                                        <h4 class="mb-1 mt-2">Danh sách lịch hẹn</h4>
+                                        <table class="table table-xs mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tên khách hàng</th>
+                                                    <th>Số điện thoại</th>
+                                                    <th>Thể loại hẹn</th>
+                                                    <th>Ngày dự kiến</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Xem</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="appointment-table">
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+            <!-- #/ container -->
+        </div>
+        
+        <div class="modal fade show" id="exampleModalpopover" style="padding-right: 17px;">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal"><span>×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>Popover in a modal</h5>
+                        <p>This <a href="#" role="button" data-container="body" data-toggle="popover" class="btn btn-secondary popover-test" title="" data-content="Popover body content is set in this attribute." data-original-title="Popover title">button</a> triggers a popover on click.</p>
+                        <hr>
+                        <h5>Tooltips in a modal</h5>
+                        <p><a href="#" class="tooltip-test text-primary" data-toggle="tooltip" title="" data-original-title="Told you!">This link</a> and <a href="#" class="tooltip-test text-primary" data-toggle="tooltip" title="" data-original-title="Another one!">that link</a> have tooltips on hover.</p>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+    {{> footer }}
+
+</body>
+    <script>
+        function addAppointment(tasks){
+            let root = document.getElementById("appointment-table");
+            root.innerHTML = "";
+            for (let i = 0; i < tasks.length; i++) {
+                let task = tasks[i];
+                if (task.type == 1){
+                    task.type = "Xem xe";
+                } else if (task.type == 2){
+                    task.type = "Sửa xe";
+                }
+
+                if (task.status == 1){
+                    task.status = "Đang chờ";
+                    task.class_view = "text-warning"
+                } else if (task.status == 2){
+                    task.status = "Đã xác nhận";
+                    task.class_view = "text-success"
+                } else if (task.status == 4){
+                    task.status = "Đã hủy";
+                    task.class_view = "text-danger"
+                } else if (task.status == 3){
+                    task.status = "Đã hoàn thành";
+                    task.class_view = "text-primary"
+                }
+                root.innerHTML += `
+                    <tr>
+                        <td>${task.customer.name}</td>
+                        <td>${task.customer.phone}</td>
+                        <td>${task.type}</td>
+                        <td>${task.date}</td>
+                        <td class="${task.class_view}">${task.status}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalpopover">Xem</button>
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        function getAppointment(status){
+            document.getElementById("preloader").style.display = "block";
+            $.ajax({
+                url: "/api/filter-task-by-status",
+                type: "POST",
+                data: {
+                    status: status
+                },
+                dataType: "json",
+                success: function (data) {
+                    addAppointment(data.data);
+                    document.getElementById("preloader").style.display = "none";
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+        $(document).ready(function(){
+            $.ajax({
+                url: "/api/get-all-task",
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    addAppointment(data.data);
+                    document.getElementById("preloader").style.display = "none";
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        });
+
+    </script>
+</html>
+
+{{!-- Path: views\admin\footer.hbs --}}

@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.post('/create', order.createOrder);
 router.get('/all', order.getAllOrder);
+router.post('/day', order.getOrderDay);
 router.delete('/delete/:id', order.deleteOrderById);
 router.get('/view/:id', order.viewOrder);
 
