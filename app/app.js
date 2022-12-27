@@ -12,7 +12,10 @@ app.set('view engine', 'hbs'); // engine view
 app.use(bodyparser.urlencoded());
 app.use(bodyparser.json());
 
-app.use(express.static(path.join(__dirname, '/public')));
+// app.use(express.static(path.join(__dirname, '/public')));
+
+app.use('/public', express.static('public'));
+// public folder for static files
 
 app.use(session({
   secret: 'abcdefg',
