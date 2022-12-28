@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Trang chủ</title>
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link href="/public/plugins/toastr/css/toastr.min.css" rel="stylesheet">
     <link href="/public/css/style.css" rel="stylesheet">
 
 </head>
@@ -43,7 +44,7 @@
                                         <div class="general-button">
                                             <button type="button" class="btn mb-1 btn-flat btn-outline-primary" onclick="getAppointment(1)">Đang chờ</button>
                                             <button type="button" class="btn mb-1 btn-flat btn-outline-primary" onclick="getAppointment(2)">Đã xác nhận</button>
-                                            <button type="button" class="btn mb-1 btn-flat btn-outline-primary" onclick="getAppointment(3)">Đã hoàn thành</button>
+                                            {{!-- <button type="button" class="btn mb-1 btn-flat btn-outline-primary" onclick="getAppointment(3)">Đã hoàn thành</button> --}}
                                             <button type="button" class="btn mb-1 btn-flat btn-outline-primary" onclick="getAppointment(4)">Đã hủy</button>
                                         </div>
                                         <h4 class="mb-1 mt-2">Danh sách lịch hẹn</h4>
@@ -76,21 +77,65 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Modal title</h5>
+                        <h5 class="modal-title">Chi tết lịch hẹn</h5>
                         <button type="button" class="close" data-dismiss="modal"><span>×</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <h5>Popover in a modal</h5>
-                        <p>This <a href="#" role="button" data-container="body" data-toggle="popover" class="btn btn-secondary popover-test" title="" data-content="Popover body content is set in this attribute." data-original-title="Popover title">button</a> triggers a popover on click.</p>
+                    <div class="modal-body" id="modal-body">
+                        <h5>Thông tin khách hàng</h5>
+                        <p>Họ tên: Phạm tiến thành công</p>
+                        <p>Số điện thoại: 093653479</p>
+                        <p>Địa chỉ: </p>
                         <hr>
-                        <h5>Tooltips in a modal</h5>
-                        <p><a href="#" class="tooltip-test text-primary" data-toggle="tooltip" title="" data-original-title="Told you!">This link</a> and <a href="#" class="tooltip-test text-primary" data-toggle="tooltip" title="" data-original-title="Another one!">that link</a> have tooltips on hover.</p>
-
+                        <h5>Thông tin lịch hẹn</h5>
+                        <p>
+                            Thể loại hẹn: Xem xe
+                        </p>
+                        <p>
+                            Ngày dự kiến: 12/12/2020
+                        </p>
+                        <p>
+                            tiêu đề: Xem xe
+                        </p>
+                        <p>
+                            Nội dung: Xem xe
+                        </p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#exampleModal">Đổi trạng thái</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="padding-right: 17px;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Đổi trạng thái</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <input type="hidden" name="id" id="mid">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Ngày đến gặp:</label>
+                                <input type="text" name="date" class="form-control" id="mdate">
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="col-form-label">Giờ dự kiến:</label>
+                                <input type="text" name="time" class="form-control" id="mtime">
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-danger" onclick="choseTime(4)">Hủy lịch hẹn</button>
+                                <button type="button" class="btn btn-primary" onclick="choseTime(2)">Xác nhận lịch hẹn</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -99,9 +144,30 @@
     </div>
     
     {{> footer }}
+    
+    {{!-- toastr --}}
+    <script src="/public/plugins/toastr/js/toastr.min.js"></script>
+    <script src="/public/plugins/toastr/js/toastr.init.js"></script>
 
 </body>
     <script>
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+
         function addAppointment(tasks){
             let root = document.getElementById("appointment-table");
             root.innerHTML = "";
@@ -134,11 +200,81 @@
                         <td>${task.date}</td>
                         <td class="${task.class_view}">${task.status}</td>
                         <td>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalpopover">Xem</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalpopover" onclick="changeModel('${task._id}')">Xem</button>
                         </td>
                     </tr>
                 `;
             }
+        }
+
+        function choseTime(type){
+            let id = document.getElementById("mid").value;
+            let date = document.getElementById("mdate").value;
+            let time = document.getElementById("mtime").value;
+            $.ajax({
+                url: `/api/update-task`,
+                type: "PUT",
+                data: {
+                    id: id,
+                    status: type,
+                    date: date,
+                    time: time
+                },
+                dataType: "json",
+                success: function (data) {
+                    getAppointment(1)
+                    $('#exampleModal').modal('hide');
+                    toastr["success"]("Cập nhập dữ liệu thành công.")
+                },
+                error: function (data) {
+                    toastr["error"]("Cập nhập dữ liệu thất bại.")
+                }
+            });
+        }
+
+        function changeModel(id){
+            let modalBody = document.getElementById("modal-body");
+            modalBody.innerHTML = "Chờ xử lý";
+            $.ajax({
+                url: `/api/get-task-by-id/${id}`,
+                type: "GET",
+                success: function (data) {
+                    if (data.data.customer.address == null){
+                        data.data.customer.address = "";
+                    }
+                    if (data.data.type == 1){
+                        data.data.type = "Xem xe";
+                    } else if (data.data.type == 2){
+                        data.data.type = "Sửa xe";
+                    }
+                    if (!data.data.time){
+                        data.data.time = ""
+                    }
+                    modalBody.innerHTML = `
+                        <h5>Thông tin khách hàng</h5>
+                        <p>Họ tên: ${data.data.customer.name}</p>
+                        <p>Số điện thoại: ${data.data.customer.phone}</p>
+                        <p>Địa chỉ: ${data.data.customer.address}</p>
+                        <hr>
+                        <h5>Thông tin lịch hẹn</h5>
+                        <p>
+                            Thể loại hẹn: ${data.data.type}
+                        </p>
+                        <p>
+                            Ngày dự kiến: ${data.data.time} ${data.data.date} 
+                        </p>
+                        <p>
+                            tiêu đề: ${data.data.title}
+                        </p>
+                        <p>
+                            Nội dung: ${data.data.message}
+                        </p>
+                    `;
+                    document.getElementById("mid").value = data.data._id;
+                    document.getElementById("mdate").value = data.data.date;
+                    document.getElementById("mtime").value = data.data.time;
+                },
+            })
         }
 
         function getAppointment(status){

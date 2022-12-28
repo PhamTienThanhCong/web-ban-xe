@@ -64,12 +64,12 @@
     $(document).ready(function () {
         $('#login-form').submit(function (e) {
             e.preventDefault();
-            document.getElementById("preloader").style.display = "block";
             if ($('input[name="phone"]').val() == '') {
                 swal("Thông báo", "Vui lòng nhập số điện thoại", "error");
             }else if ($('input[name="password"]').val() == '') {
                 swal("Thông báo", "Vui lòng nhập mật khẩu", "error");
             }else{
+                document.getElementById("preloader").style.display = "block";
                 $.ajax({
                     url: '/api/login',
                     type: 'POST',
