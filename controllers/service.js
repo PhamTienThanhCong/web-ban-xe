@@ -82,18 +82,19 @@ async function updateService(req, res) {
 }
 
 // delete service
-async function deleteService(req, res) {
-    const { id } = req.body;
+function deleteService(req, res) {
+    const { id } = req.params;
     try {
         service.findByIdAndDelete(id, (data, err) => {
+            console.log(err);
             if (err) {
-                res.status(500).json({ message: "Delete service failed" });
+                res.status(500).send({ message: 'Error when delete user' });
             } else {
-                res.status(200).json({ message: "Delete service successfully" });
+                res.status(200).send({ message: 'Delete successfully' });
             }
         });
     } catch (error) {
-        res.status(500).json({ message: "Delete service failed" });
+        res.status(500).send({ message: 'Error when delete user' });
     }
 }
 

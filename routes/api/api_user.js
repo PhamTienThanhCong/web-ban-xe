@@ -12,5 +12,6 @@ router.put('/updateUser/:id', auth.updateUser);
 router.get('/list/:role', auth.getListUser);
 router.get('/view/:id', auth.viewUser);
 router.get('/all', auth.getAllUser);
+router.post('/new-account', auth.createAccount);
 
 module.exports = router;

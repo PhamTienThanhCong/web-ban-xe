@@ -34,4 +34,11 @@ $(document).ready(function () {
             addAppointment(tasks.data);
         }
     });
+    if (role == 3){
+        document.getElementById("slide-nv").style.display = "block";
+    }else if (role == 2){
+        document.getElementById("slide-ql").style.display = "block";
+    }else if (role == 1){
+        document.getElementById("slide-admin").style.display = "block";
+    }
 });

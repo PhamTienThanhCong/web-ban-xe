@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Trang chủ</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link href="/public/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+    {{!-- load --}}
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    {{!-- load --}}
+
+    <div id="main-wrapper">
+
+        {{> header }}
+
+        {{> slideBarAdmin }}
+        {{> slideBarQL }}
+        {{> slideBarNv }}
+       
+        <div class="content-body">
+            <!-- row -->
+            
+            <div class="container-fluid">
+                {{!-- Thông tin tổng quan --}}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <button type="button" class="btn mb-1 btn-outline-primary" onclick="viewNew()">Ngày hôm nay</button>
+                                <button type="button" class="btn mb-1 btn-outline-primary" onclick="viewAll()">Tất cả thời gian</button>
+                                <h4 class="card-title mt-3" id="card-title">Danh sách đơn hàng</h4>
+                                <div class="table-responsive">
+                                    <table class="table header-border">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Mã vận đơn</th>
+                                                <th scope="col">Họ tên</th>
+                                                <th scope="col">Số điện thoại</th>
+                                                <th scope="col">Số lượng sản phẩm</th>
+                                                <th scope="col">Tổng hóa đơn</th>
+                                                <th scope="col">Thời gian</th>
+                                                <th scope="col">Xem</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="order-render">
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- #/ container -->
+        </div>
+        
+        
+    </div>
+    
+    {{> footer }}
+
+</body>
+    <script>
+        function render(data){
+            var html = '';
+            data.forEach(function(item){
+                html += '<tr>';
+                html += '<td>'+item._id+'</td>';
+                html += '<td>'+item.customer.name+'</td>';
+                html += '<td>'+item.customer.phone+'</td>';
+                var total = 0;
+                var count = 0;
+                for (let i = 0; i < item.orderDetails.length; i++) {
+                    total += item.orderDetails[i].price;
+                    count ++;
+                }
+                html += '<td>'+count+' SP</td>';
+                html += '<td>'+total+' VND</td>';
+                html += '<td>' + item.time + ' Ngày ' +item.date+'</td>';
+                html += '<td><a href="/admin/quan-ly-don-hang/xem/'+item._id+'">Xem</a></td>';
+                html += '</tr>';
+            });
+            $('#order-render').html(html);
+        }
+        function viewAll(){
+            document.getElementById('card-title').innerHTML = 'Danh sách tất cả đơn hàng';
+            $.ajax({
+                url: '/api/order/all',
+                type: 'GET',
+                success: function(data){
+                    data = data.data;
+                    render(data)
+                }
+            });
+        }
+        function viewNew(){
+            document.getElementById('card-title').innerHTML = 'Danh sách đơn hàng hôm nay';
+            {{!-- lấy ngày hôm nay định dạng ngày/tháng/năm --}}
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1; //January is 0!
+            var yyyy = today.getFullYear();
+
+            today = dd+'/'+mm+'/'+yyyy;
+            $.ajax({
+                url: '/api/order/day',
+                type: 'POST',
+                data: {date: today},
+                dataType: 'json',
+                success: function(data){
+                    data = data.data;
+                    render(data)
+                }
+            });
+        }
+        $(document).ready(function(){
+            viewNew();
+        });
+    </script>
+</html>

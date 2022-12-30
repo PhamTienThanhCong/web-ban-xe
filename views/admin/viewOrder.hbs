@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Trang chủ</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link href="/public/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+    {{!-- load --}}
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    {{!-- load --}}
+
+    <div id="main-wrapper">
+
+        {{> header }}
+
+        {{> slideBarAdmin }}
+        {{> slideBarQL }}
+        {{> slideBarNv }}
+       
+        <div class="content-body">
+            <!-- row -->
+            
+            <div class="container-fluid">
+                {{!-- Thông tin tổng quan --}}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="text-center">Xem bill</h2>
+                                <p>
+                                    Mã đơn hàng: {{ order._id }}
+                                </p>
+                                <p>
+                                    Thời gian: {{ order.time }} ngày {{ order.date }}
+                                </p>
+                                <h4 class="text-center">
+                                    Thông tin khách hàng:
+                                </h4>
+                                <p>
+                                    Họ tên khách hàng: {{ order.customer.name }}
+                                </p>
+                                <p>
+                                    Số điện thoại: {{ order.customer.phone }}
+                                </p>
+                                <p>
+                                    Địa chỉ: {{ order.customer.address }}
+                                </p>
+                                <h4 class="text-center">
+                                    Thông tin sản phẩm:
+                                </h4>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Tên sản phẩm</th>
+                                            <th scope="col">Thành tiền</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each order.orderDetails}}
+                                        <tr>
+                                            <td>{{ this.name }}</td>
+                                            <td>{{ this.price }} VNĐ</td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                                <p>
+                                    Tổng tiền: {{ order.total }} VNĐ
+                                </p>
+                            </div>
+                            {{!-- trở lại --}}
+                            <div class="card-footer">
+                                <a href="/admin/quan-ly-don-hang" class="btn btn-primary">Trở lại</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- #/ container -->
+        </div>
+        
+        
+    </div>
+    
+    {{> footer }}
+
+</body>
+
+<script src="/public/javascript/nhanvien/home.js"></script>
+
+</html>

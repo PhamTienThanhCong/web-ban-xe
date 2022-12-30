@@ -5,7 +5,7 @@ const product = require('../models/product');
 
 // create new order
 async function createOrder(req, res) {
-    const { customer_id, id_services, type } = req.body;
+    const { name, phone, id_services, type } = req.body;
     let orderDetail = [];
     // chuyển id_services thành mảng
     let id_services_array = id_services.split(',');
@@ -27,16 +27,26 @@ async function createOrder(req, res) {
         }
     }
     // lấy thông tin của customer
-    let my_customer = await customer.findById( customer_id );
+    let my_customer = await customer.findOne({ phone: phone });
 
-    let customerInfo = {
-        "id": my_customer._id,
-        "name": my_customer.name,
-        "phone": my_customer.phone,
-        "email": my_customer.email,
-        "address": my_customer.address,
-        "gender": my_customer.gender
+    let customerInfo = {};
+
+    if (!my_customer) {
+        customerInfo = {
+            name: name,
+            phone: phone,
+        }
+    }else{
+        customerInfo = {
+            "id": my_customer._id,
+            "name": my_customer.name,
+            "phone": my_customer.phone,
+            "email": my_customer.email,
+            "address": my_customer.address,
+            "gender": my_customer.gender
+        }
     }
+    
     // lấy ngày giờ hiện tại theo timezone của việt nam
     let now = new Date();
     let nowDate = now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear();
@@ -54,7 +64,7 @@ async function createOrder(req, res) {
             if (err) {
                 res.json({ status: 500, message: "tạo đơn hàng thất bại!" });
             } else {
-                res.json({ status: 200, message: 'Tạo đơn hàng thành công!' });
+                res.json({ status: 200, message: 'Tạo đơn hàng thành công!', id: newOrder._id });
             }
         });
     } catch (error) {

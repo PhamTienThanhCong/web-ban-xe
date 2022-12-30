@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Trang chủ</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link href="/public/css/style.css" rel="stylesheet">
+    <link href="/public/plugins/sweetalert/css/sweetalert.css" rel="stylesheet">
+
+</head>
+
+<body>
+    {{!-- load --}}
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    {{!-- load --}}
+
+    <div id="main-wrapper">
+
+        {{> header }}
+
+        {{> slideBarAdmin }}
+        {{> slideBarQL }}
+        {{> slideBarNv }}
+       
+        <div class="content-body">
+            <!-- row -->
+            
+            <div class="container-fluid">
+                {{!-- Thông tin tổng quan --}}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">+ Thêm dịch vụ mới</button>
+                                <h4 class="card-title mt-3" id="card-title">Danh sách dịch vụ</h4>
+                                <div class="table-responsive">
+                                    <table class="table header-border">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Tên</th>
+                                                <th scope="col">Loại</th>
+                                                <th scope="col">Giá</th>
+                                                <th scope="col">Mô Tả</th>
+                                                <th scope="col">Xóa</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="service-render">
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- #/ container -->
+        </div>
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form class="modal-content" id="add-service">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Thêm dịch vụ mới</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Tên dịch vụ:</label>
+                            <input type="text" class="form-control" name="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Giá tiền:</label>
+                            <input type="text" class="form-control" name="price">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Mô tả:</label>
+                            <textarea class="form-control" id="message-text" name="description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Mô tả:</label>
+                            <select class="form-control" name="service_type">
+                                <option value="1">Dành cho xe máy</option>
+                                <option value="2">Dành cho ô tô</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" onclick="active()">Send message</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    {{> footer }}
+
+    <script src="/public/plugins/sweetalert/js/sweetalert.min.js"></script>
+    <script src="/public/plugins/sweetalert/js/sweetalert.init.js"></script>
+
+</body>
+    <script>
+        function xoaDv(id){
+            $.ajax({
+                url: `/api/delete-service/${id}`,
+                type: 'DELETE',
+                success: function (data) {
+                    {{!-- swal thành công --}}
+                    swal({
+                        title: "Thành công!",
+                        text: "Xóa dịch vụ thành công!",
+                        type: "success",
+                        confirmButtonClass: "btn btn-confirm mt-2"
+                    });
+                    render();
+                },
+                error: function (data) {
+                    {{!-- swal thất bại --}}
+                    swal({
+                        title: "Thất bại!",
+                        text: "Xóa dịch vụ thất bại!",
+                        type: "error",
+                        confirmButtonClass: "btn btn-confirm mt-2"
+                    });
+                }
+            });
+        }
+
+        function render(){
+            $.ajax({
+                url: '/api/get-all-service',
+                type: 'GET',
+                success: function (data) {
+                    data = data.data;
+                    var html = '';
+                    data.forEach(function (item) {
+                        html += '<tr>';
+                        html += '<td>' + item.name + '</td>';
+                        if (item.service_type == 1){
+                            html += '<td>Dịch vụ xe máy</td>'
+                        }else{
+                            html += '<td>Dịch vụ ô tô</td>'
+                        }
+                        html += '<td>' + item.price + '</td>';
+                        html += '<td>' + item.description + '</td>';
+                        html += `<td><a href="#" class="btn btn-danger" onclick="xoaDv('${item._id}')">Xóa</a></td>`;
+                        html += '</tr>';
+                    });
+                    $('#service-render').html(html);
+                }
+            });
+        }
+        $(document).ready(function () {
+            render();
+            document.getElementById("add-service").addEventListener('submit', function (e) {
+                e.preventDefault();
+                var data = $(this).serialize();
+                {{!-- xóa ô đã nhập --}}
+                $(this).find('input').val('');
+                $.ajax({
+                    url: '/api/add-new-service',
+                    type: 'POST',
+                    data: data,
+                    success: function (data) {
+                        {{!-- swal thành công --}}
+                        swal({
+                            title: "Thành công!",
+                            text: "Thêm dịch vụ thành công!",
+                            type: "success",
+                            confirmButtonClass: "btn btn-confirm mt-2"
+                            });
+                        {{!-- hidden exampleModal --}}
+                        $('#exampleModal').modal('hide');
+                        render();
+                    },
+                    error: function (data) {
+                        {{!-- swal thất bại --}}
+                        swal({
+                            title: "Thất bại!",
+                            text: "Thêm dịch vụ thất bại!",
+                            type: "error",
+                            confirmButtonClass: "btn btn-confirm mt-2"
+                        });
+                    }
+                });
+            });
+        });
+        
+    </script>
+</html>

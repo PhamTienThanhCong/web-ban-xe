@@ -36,6 +36,36 @@ function register(req, res) {
         }
     });
 }
+
+// cteate account
+function createAccount(req, res) {
+    const { name, phone, email, gender, birthday, photo, address, role, password } = req.body;
+    // check if phone exist
+    user.findOne ({ phone: phone }, (err, data) =>  {
+        if (err) {
+            res.status(500).send({ message: 'Error when create account' });
+        } else {
+            if (data) {
+                res.status(500).send({ message: 'Số điện thoại đã tồn tại' });
+            } else {
+                // create new user
+                const newUser = new user({ name, phone, email, gender, birthday, photo, address, role, password });
+                try {
+                    newUser.save((data, err) => {
+                        if (err) {
+                            res.status(500).send({ message: 'Error when create account' });
+                        } else {
+                            res.status(200).send({ message: 'Create account success' });
+                        }
+                    });
+                } catch (error) {
+                    res.status(500).send({ message: 'Error when create account' });
+                }
+            }
+        }
+    })
+}
+
 //update user
 function updateUser(req, res) {
     const { id } = req.params;
@@ -206,5 +236,6 @@ module.exports = {
     getListUser,
     viewUser,
     getAllUser,
+    createAccount,
     test
 }

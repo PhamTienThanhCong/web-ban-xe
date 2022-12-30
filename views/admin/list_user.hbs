@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Trang chủ</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link href="/public/css/style.css" rel="stylesheet">
+    <link href="/public/plugins/sweetalert/css/sweetalert.css" rel="stylesheet">
+
+</head>
+
+<body>
+    {{!-- load --}}
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    {{!-- load --}}
+
+    <div id="main-wrapper">
+
+        {{> header }}
+
+        {{> slideBarAdmin }}
+        {{> slideBarQL }}
+        {{> slideBarNv }}
+       
+        <div class="content-body">
+            <!-- row -->
+            
+            <div class="container-fluid">
+                {{!-- Thông tin tổng quan --}}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">{{ title }}</h4>
+                                <div class="table-responsive">
+                                    <table class="table header-border">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Họ & Tên</th>
+                                                <th scope="col">Số điện thoại</th>
+                                                <th scope="col">Ngày Sinh</th>
+                                                <th scope="col">Giới tính</th>
+                                                <th scope="col">Thao tác</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="info-render">
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- #/ container -->
+        </div>    
+    </div>
+    
+    <div class="modal fade" id="exampleModalCenter" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thông tin chi tiết</h5>
+                    <button type="button" class="close" data-dismiss="modal"><span>×</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modal-body-show">
+                    
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#comfirmDelete" onclick="deleteHind()">Xóa người dùng này</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="comfirmDelete" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xác nhận xóa</h5>
+                    <button type="button" class="close" data-dismiss="modal"><span>×</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modal-body-show">
+                    <h4>Bạn chắc chắn xóa người dùng này và không thể khôi phục</h4>
+                </div>
+                <form class="modal-footer" id="form-delete">
+                    <input type="hidden" id="id-delete">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đổi ý</button>
+                    <button type="submit" class="btn btn-danger">Đồng ý xóa</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{> footer }}
+
+    <script src="/public/plugins/sweetalert/js/sweetalert.min.js"></script>
+    <script src="/public/plugins/sweetalert/js/sweetalert.init.js"></script>
+
+</body>
+
+<script>
+    const role_user = {{ role }};
+    let user = [];
+    function deleteHind(){
+        $('#exampleModalCenter').modal('hide');
+    }
+    function showUser(index){
+        document.getElementById("modal-body-show").innerHTML = `
+            <p>
+                <b>Họ và tên:</b> ${user[index].name}
+            </p>
+            <p>
+                <b>Số điện thoại:</b> ${user[index].phone}
+            </p>
+            <p>
+                <b>Ngày sinh:</b> ${user[index].birthday}
+            </p>
+            <p>
+                <b>Giới tính:</b> ${user[index].gender}
+            </p>
+            <p>
+                <b>Địa chỉ:</b> ${user[index].address}
+            </p>
+            <p>
+                <b>Ngày đăng ký:</b> ${user[index].created_at}
+            </p>
+        `
+        document.getElementById("id-delete").value = user[index]._id;
+    }
+    function renderUser(){
+        $.ajax({
+            url: `/api/list/${role_user}`,
+            type: 'GET',
+            success: function (data) {
+                let root = document.getElementById('info-render');
+                root.innerHTML = "";
+                for (let i = data.length - 1; i >= 0; i--) {
+                    if (data[i].gender == 1){
+                        data[i].gender = "Nam";
+                    }else{
+                        data[i].gender = "Nữ";
+                    }
+                    if (data[i].birthday == null || data[i].birthday == "" || data[i].birthday == "undefined" ){
+                        data[i].birthday = "Chưa cập nhật";
+                    }
+                    {{!-- format  2022-12-30T08:43:00.727Z to 08:43 30-12-2022 --}}
+                    let date = new Date(data[i].created_at);
+                    let day = date.getDate();
+                    let month = date.getMonth() + 1;
+                    let year = date.getFullYear();
+                    let hour = date.getHours();
+                    let minute = date.getMinutes();
+                    let second = date.getSeconds();
+                    if (day < 10) {
+                        day = '0' + day;
+                    }
+                    if (month < 10) {
+                        month = '0' + month;
+                    }
+                    if (hour < 10) {
+                        hour = '0' + hour;
+                    }
+                    if (minute < 10) {
+                        minute = '0' + minute;
+                    }
+                    if (second < 10) {
+                        second = '0' + second;
+                    }
+                    data[i].created_at = hour + ':' + minute + ' ngày ' + day + '-' + month + '-' + year;
+
+                    root.innerHTML += `
+                        <th scope="col">${data[i].name}</th>
+                        <th scope="col">${data[i].phone}</th>
+                        <th scope="col">${data[i].birthday}</th>
+                        <th scope="col">${data[i].gender}</th>
+                        <th scope="col">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="showUser(${i})">Xem chi tiết</button>
+                        </th>
+                    `
+                }
+                user = data;
+            }
+        });
+    }
+    $(document).ready(function () {
+        renderUser();
+        document.getElementById("form-delete").addEventListener("submit", function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: `/api/delete/${document.getElementById("id-delete").value}`,
+                type: 'DELETE',
+                success: function (data) {
+                    $('#comfirmDelete').modal('hide');
+                    swal("Xóa thành công!", "Người dùng đã được xóa khỏi hệ thống", "success")
+                    renderUser();
+                },
+                error: function (data) {
+                    swal("Xóa thất bại!", "Người dùng chưa được xóa khỏi hệ thống", "error")
+                }
+            });
+        });
+    });
+</script>
+
+</html>
