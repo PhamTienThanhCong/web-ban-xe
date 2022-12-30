@@ -1,0 +1,175 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Basket</title>
+  <link rel="stylesheet" href="css/damua.css">
+  <link rel="stylesheet" href="css/cssweb.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="java/damua.js"></script>
+</head>
+
+<body>
+
+    <header>
+        <img src="/public/images/logo.png">
+    </header>
+    <div class="trai">
+    </div>
+    <nav>
+        <div id="menu">
+            <ul>
+                <li><a href="index.html" target="_self">TRANG CHỦ</a></li>
+                <li><a href="gioithieu.html" target="_self">GIỚI THIỆU </a></li>
+                <li>
+                    <a href="#" target="_self">DANH MỤC SẢN PHẨM</a>
+                    <ul>
+                        <li>
+                            <img class="bieutuong" src="/public/images/honda-icb.png"><a href="honda.html"> XE HONDA</a>
+                            <ul>
+                                <li><a href="honda-so.html">XE SỐ</a></li>
+                                <li><a href="honda-tayga.html">XE TAY GA</a></li>
+                                <li><a href="honda-taycon.html">XE CÔN TAY</a></li>
+                                <li><a href="honda-moto.html">XE MÔ TÔ</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <img class="bieutuong" src="/public/images/yamaha-icb.png"><a href="yamaha.html"> XE YAMAHA</a>
+                            <ul>
+                                <li><a href="yamaha-so.html">XE SỐ</a></li>
+                                <li><a href="yamaha-tayga.html">XE TAY GA</a></li>
+                                <li><a href="yamaha-moto.html">XE MÔ TÔ</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <img class="bieutuong" src="/public/images/suzuki-icb.png"><a href="suzuki.html"> XE SUZUKI</a>
+                            <ul>
+                                <li><a href="suzuki-so.html">XE SỐ</a></li>
+                                <li><a href="suzuki-tayga.html">XE TAY GA</a></li>
+                                <li><a href="suzuki-contay.html">XE CÔN TAY</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <img class="bieutuong" src="/public/images/sym-icb.png"><a href="sym.html"> XE SYM</a>
+                            <ul>
+                                <li><a href="sym-so.html">XE SỐ</a></li>
+                                <li><a href="sym-tayga.html">XE TAY GA</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <img class="bieutuong" src="/public/images/piaggio-icb.png"><a href="piaggio.html"> XE PIAGGIO</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="Lienhe2.html" target="_self">LIÊN HỆ</a></li>
+                <ul>
+        </div>
+        <div id="phai">
+        </div>
+        <div class="tim">
+            <form>
+                <input type="text" autofocus placeholder="Tìm kiếm xe, giá xe...">
+                <input type="submit" value="Tìm kiếm">
+            </form>
+        </div>
+        <!-- <div class="phai1"><a href="dangnhap.html">ĐĂNG NHẬP</a></div> -->
+        <div class="phai1"><a href="user.html"><i class="fa-solid fa-user" style="margin-right: 10px;"></i>Dũng Phạm</a></div>
+    </nav>
+
+  <main>
+    <div class="basket">
+      <div class="basket-module">
+        <label for="promo-code">Enter a promotional code</label>
+        <input id="promo-code" type="text" name="promo-code" maxlength="5" class="promo-code-field">
+        <button class="promo-code-cta">Apply</button>
+      </div>
+      <div class="basket-labels">
+        <ul class="ul">
+          <li class="item item-heading">Item</li>
+          <li class="price">Price</li>
+          <li class="quantity">Quantity</li>
+          <li class="subtotal">Subtotal</li>
+        </ul>
+      </div>
+      <div class="basket-product">
+        <div class="item">
+          <div class="product-image">
+            <img class="img" src="./Images/a3.png" alt="Placholder Image 2" class="product-frame">
+          </div>
+          <div class="product-details">
+            <h1><strong><span class="item-quantity">4</span> x Eliza J</strong> Lace Sleeve Cuff Dress</h1>
+            <p><strong>Navy, Size 18</strong></p>
+            <p>Product Code - 232321939</p>
+          </div>
+        </div>
+        <div class="price">26.00</div>
+        <div class="quantity">
+          <span type="number" value="4" min="1" class="quantity-field">4</span>
+        </div>
+        <div class="subtotal">104.00</div>
+        <div class="remove">
+          <a href="lienhe.html">Bảo dưỡng / Sửa chữa</a>
+        </div>
+      </div>
+      <div class="basket-product">
+        <div class="item">
+          <div class="product-image">
+            <img class="img" src="./Images/a3.png" alt="Placholder Image 2" class="product-frame">
+          </div>
+          <div class="product-details">
+            <h1><strong><span class="item-quantity">1</span> x Whistles</strong> Amella Lace Midi Dress</h1>
+            <p><strong>Navy, Size 10</strong></p>
+            <p>Product Code - 232321939</p>
+          </div>
+        </div>
+        <div class="price">26.00</div>
+        <div class="quantity">
+          <span type="number" value="1" min="1" class="quantity-field">4</span>
+        </div>
+        <div class="subtotal">26.00</div>
+        <div class="remove">
+          <a href="lienhe.html">Bảo dưỡng / Sửa chữa</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+  <footer>
+    <div >
+        <div style="display: flex;    justify-content: space-around;">
+            <div >
+                <h5>FB.</h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+                <p>&copy; Copyrights. All rights reserved. <a class="text-primary" href="#">Bootstrapious.com</a></p>
+            </div>
+            <div>
+                <h5>Quick links</h5>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Get started</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5>Quick links</h5>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Get started</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5>Newsletter</h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+
+</html>

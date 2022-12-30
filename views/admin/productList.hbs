@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Trang chủ</title>
+    <link rel="icon" type="image/png" sizes="16x16" href"/public/images/favicon.png">
+    <link href="/public/css/style.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+    {{!-- load --}}
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    {{!-- load --}}
+
+    <div id="main-wrapper">
+
+        {{> header }}
+
+        {{> slideBarAdmin }}
+        {{> slideBarQL }}
+        {{> slideBarNv }}
+       
+        <div class="content-body">
+            <!-- row -->
+            
+            <div class="container-fluid">
+                {{!-- Thông tin tổng quan --}}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title mt-3" id="card-title">Danh sách đơn hàng</h4>
+                                <div class="table-responsive">
+                                    <table class="table header-border">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Ảnh</th>
+                                                <th scope="col">Mã xe</th>
+                                                <th scope="col">Tên xe</th>
+                                                <th scope="col">Loại xe</th>
+                                                <th scope="col">Giá</th>
+                                                <th scope="col">Xem</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="traffic-render">
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- #/ container -->
+        </div>
+        
+        
+    </div>
+    
+    {{> footer }}
+    {{!-- import jquery --}}
+    
+
+</body>
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: '/api/productList',
+                type: 'GET',
+                success: function(data) {
+                    data = data.data;
+                    var html = '';
+                    data.forEach(function(item) {
+                        html += `
+                        <tr>
+                            <td><img src="${item.imagePreview}" alt="" style="width: 100px; height: 100px;"></td>
+                            <td>${item._id}</td>
+                            <td>${item.name}</td>
+                            <td>${item.type}</td>
+                            <td>${item.price} VND</td>
+                            <td><a href="/xem-san-pham/${item._id}">Xem</a></td>
+                        </tr>
+                        `
+                    });
+                    $('#traffic-render').html(html);
+                }
+            })
+        })
+    </script>
+</html>

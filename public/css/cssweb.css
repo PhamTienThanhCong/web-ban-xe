@@ -1,0 +1,256 @@
+@charset "utf-8";
+/* CSS Document */
+
+* {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+
+body>header {
+	background-color: #1e1e1e;
+}
+
+nav {
+	clear: both;
+	background: radial-gradient(circle, #B22222 30%, #B22222 60%, #1e1e1e 95%);
+	text-align: center;
+	padding-left: 0%;
+	height: 45px;
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+	z-index: 10;
+}
+
+
+div#menu {
+	width: 52.34%;
+	height: 5%;
+	float: left;
+}
+
+div#menu>ul {
+	list-style: none;
+}
+
+div#menu>ul>li {
+	float: left;
+	margin-left: 4.2%;
+	margin-right: 1.2%;
+	margin-top: 1.5%;
+	position: relative;
+	padding: 0px 12px;
+}
+
+div#menu>ul>li a {
+	font-family: "Times New Roman", Times, serif;
+	font-size: 9px;
+	font-weight: bold;
+	color: #FFF;
+	text-decoration: none;
+	padding-top: 17px;
+	padding-bottom: 12px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+div#menu>ul>li>a:hover {
+	opacity: .7;
+
+}
+
+div#menu>ul>li>a {
+	font-family: "Times New Roman", Times, serif;
+	font-size: 15px;
+	font-weight: bold;
+	color: #FFF;
+	text-decoration: none;
+}
+
+div#menu>ul>li>ul {
+	margin-top: 4%;
+	list-style: none;
+	line-height: 160%;
+	display: none;
+	position: absolute;
+	width: 180px;
+}
+
+div#menu>ul>li:hover ul {
+	display: block;
+	background-color: #1e1e1e;
+	border: 1.3px #1e1e1e solid;
+}
+
+div#menu>ul>li>ul>li:hover {
+	transform: scaleX(1.1);
+	text-shadow: 2.5px 2.5px 1px #1e1e1e;
+	background-color: #1e1e1e;
+	border-radius: 10px;
+	border-left: 1.2px #dd3818 solid;
+	border-right: 1.2px #dd3818 solid;
+	transition: all 0.3s ease;
+	position: relative;
+}
+
+.phai1 a{
+	text-decoration: none;
+	color: #FFF;
+}
+
+.phai1{
+	font-size: 15px;
+	padding: 12px;
+}
+
+.phai1 a:hover{
+	opacity: 0.7;
+}
+
+.bieutuong {
+	width: 40px;
+	height: 19px;
+}
+
+.tim {
+	float: left;
+	margin-left: 6.3%;
+	background-color: #FFF;
+	margin-top: 5px;
+	height: 34px;
+	width: 346px;
+	border: 1px solid #dd3818;
+	border-radius: 5px;
+}
+
+.tim input[type=text] {
+	float: left;
+	height: 30px;
+	width: 250px;
+	padding-left: 15px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	font-size: 14px;
+	border-radius: 7px;
+	border: none;
+	outline: none;
+}
+
+.tim input[type=submit] {
+	float: right;
+	height: 100%;
+	width: 80px;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	background: #FFF;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	font-size: 14px;
+	border: none;
+}
+
+.tim input[type=submit]:hover {
+	cursor: pointer;
+}
+
+div#menu ul li ul li ul {
+	list-style: none;
+}
+
+div#menu ul li ul li:hover ul li {
+	display: block;
+	background-color: #1e1e1e;
+	height: 25px;
+	width: 150px;
+}
+
+div#menu ul li ul li:hover ul li:hover {
+	transform: scaleX(1.1);
+	text-shadow: 2.5px 2.5px 1px #1e1e1e;
+	background-color: #1e1e1e;
+	border-radius: 10px;
+	border-left: 1.2px #dd3818 solid;
+	border-right: 1.2px #dd3818 solid;
+	transition: all 0.3s ease;
+	position: relative;
+}
+
+div#menu ul li ul li:hover ul {
+	display: block;
+	background-color: #1e1e1e;
+	height: 70px;
+	position: absolute;
+	margin-left: 170px;
+	width: 150px;
+	margin-top: -30px;
+
+}
+
+div#menu ul li ul li ul li {
+	display: none;
+}
+
+article {
+	width: 75%;
+	margin: auto;
+	display: block;
+}
+
+aside#right,
+section {
+	display: table-cell;
+	vertical-align: top;
+}
+
+section {
+	width: 1149px;
+	height: auto;
+	padding: 20px 10px;
+	background-color: #FFF;
+
+}
+
+.maugia {
+	color: white;
+	font-family: "Times New Roman", Times, serif;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+
+.both111{
+	clear: both;
+}
+
+footer {
+	background: linear-gradient(to top, #1e1e1e, #908f8f);
+	padding: 20px;
+	font-size: 15px;
+}
+
+footer h5{
+	font-size: 20px;
+	margin-bottom: 5px;
+}
+
+footer p {
+	font-family: "Times New Roman", Times, serif;
+	font-size: 15px;
+	font-weight: bolder;
+	color: #FFF;
+	margin-left: 3%;
+}
+
+footer a {
+	text-decoration: none;
+	color: #fff;
+}
+
+footer a:hover{
+	opacity: 0.7;
+}
+
+footer ul {
+	list-style: none;
+}

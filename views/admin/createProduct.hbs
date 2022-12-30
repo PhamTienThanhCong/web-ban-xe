@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Trang chủ</title>
+    <link rel="icon" type="image/png" sizes="16x16" href"/public/images/favicon.png">
+    <link href="/public/plugins/sweetalert/css/sweetalert.css" rel="stylesheet">
+    <link href="/public/css/style.css" rel="stylesheet">
+    <link href="/public/plugins/summernote/dist/summernote.css" rel="stylesheet">
+
+</head>
+
+<body>
+    {{!-- load --}}
+    <div id="preloader" style="background-color: #ffffff80;">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    {{!-- load --}}
+
+    <div id="main-wrapper">
+
+        {{> header }}
+
+        {{> slideBarAdmin }}
+        {{> slideBarQL }}
+        {{> slideBarNv }}
+       
+        <div class="content-body">
+            <!-- row -->
+            
+            <div class="container-fluid">
+                {{!-- Thông tin tổng quan --}}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Thêm sản phẩm</h4>
+                                <form class="basic-form" method="post" action="/api/add-new-product">
+                                    <div id="create-account">
+                                        <div class="form-group">
+                                            <label>Tên sản phẩm</label>
+                                            <input type="text" class="form-control" name="name" id="name-kh">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Loại xe</label>
+                                            <select class="form-control" name="type">
+                                                <option value="xe-may">Xe máy</option>
+                                                <option value="o-to">Xe ô tô</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Giá tiền</label>
+                                            <input type="text" class="form-control" name="price" id="phone-kh">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Giới thiệu về sản phẩm</label>
+                                            <textarea class="form-control" id="summernote" rows="5" name="description"></textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Ảnh nổi bật</label>
+                                            <input type="text" class="form-control" name="imagePreview" placeholder="link ảnh">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Ảnh slide</label>
+                                            <input type="text" class="form-control" name="imageSlider" name="link ảnh">
+                                        </div>
+
+                                        
+                                        
+                                        <div class="form-group">
+                                            <label for="">Thông số kĩ thuật</label>
+                                            <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Chiều dài tổng thể</span>
+                                            </div>
+                                            <input type="text" class="form-control" name="chieu_dai_tong_the">
+
+                                            <div class="input-group mb-3 mt-2">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Chiều rộng tổng thể</span>
+                                            </div>
+                                            <input type="text" class="form-control" name="chieu_rong_tong_the">
+
+                                            <div class="input-group mb-3 mt-2">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Chiều cao tổng thể</span>
+                                            </div>
+                                            <input type="text" class="form-control" name="chieu_cao_tong_the">
+
+                                            <div class="input-group mb-3 mt-2">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Độ cao yên</span>
+                                            </div>
+                                            <input type="text" class="form-control" name="do_cao_yen">
+
+                                            <div class="input-group mb-3 mt-2">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Khoảng cách gầm xe với mặt đất</span>
+                                            </div>
+                                            <input type="text" class="form-control" name="khoang_cach_gam">
+
+                                            <div class="input-group mb-3 mt-2">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Trọng lượng thân</span>
+                                            </div>
+                                            <input type="text" class="form-control" name="trong_luong">
+
+                                            <div class="input-group mb-3 mt-2">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Loại động cơ</span>
+                                            </div>
+                                            <input type="text" class="form-control" name="dong_co">
+
+                                            <div class="input-group mb-3 mt-2">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Đường kính và hành trình piston</span>
+                                            </div>
+                                            <input type="text" class="form-control" name="duong_kinh_piston">
+
+                                            <div class="input-group mb-3 mt-2">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Công suất tối đa</span>
+                                            </div>
+                                            <input type="text" class="form-control" name="cong_suat">
+
+                                            <div class="input-group mb-3 mt-2">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Mô-men xoắn cực đại</span>
+                                            </div>
+                                            <input type="text" class="form-control" name="momen_xoan">
+
+                                            <div class="input-group mb-3 mt-2">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Hệ thống cung cấp nhiên liệu</span>
+                                            </div>
+                                            <input type="text" class="form-control" name="cung_cap_nhien_lieu">
+
+                                            {{!-- <div class="input-group mb-3 mt-2">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Khởi động</span>
+                                            </div>
+                                            <input type="text" class="form-control" name="khoi_dong">
+
+                                            <div class="input-group mb-3 mt-2">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Hệ thống phanh trước</span>
+                                            </div>
+                                            <input type="text" class="form-control" name="phanh_sau">
+
+                                            <div class="input-group mb-3 mt-2">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Hệ thống phanh sau</span>
+                                            </div>
+                                            <input type="text" class="form-control" name="phanh_truoc">
+
+                                            <div class="input-group mb-3 mt-2">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Dung tích bình xăng</span>
+                                            </div>
+                                            <input type="text" class="form-control" name="dung_tich">
+
+                                            <div class="input-group mb-3 mt-2">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">Bình điện</span>
+                                            </div>
+                                            <input type="text" class="form-control" name="binh_dien"> --}}
+                                        </div>
+                                        
+                                        </div>
+                                        
+
+                                        <button type="submit" class="btn btn-dark">Thêm mặt hàng</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+            <!-- #/ container -->
+        </div>
+        
+        
+    </div>
+    
+    {{> footer }}
+
+    <script src="/public/plugins/summernote/dist/summernote.min.js"></script>
+    <script src="/public/plugins/summernote/dist/summernote-init.js"></script>
+    
+    <script src="/public/plugins/sweetalert/js/sweetalert.min.js"></script>
+    <script src="/public/plugins/sweetalert/js/sweetalert.init.js"></script>
+
+</body>
+
+<script>
+    $('#summernote').summernote();
+</script>
+
+</html>

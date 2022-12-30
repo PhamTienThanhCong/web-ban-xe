@@ -190,6 +190,41 @@ function serviceList(req, res) {
     
 }
 
+function createProduct(req, res) {
+    // get user from session
+    const user = req.session.user;
+    if (!user) {
+        return res.redirect('/login');
+    }
+    if (user.role == 4){
+        return res.redirect('/login');
+    }
+    if (user.role == 3){
+        return res.redirect('/admin');
+    }
+    return res.render('admin/createProduct', {
+        user: user
+    });
+}
+
+function productList(req, res) {
+    // get user from session
+    const user = req.session.user;
+    if (!user) {
+        return res.redirect('/login');
+    }
+    if (user.role == 4){
+        return res.redirect('/login');
+    }
+    if (user.role == 3){
+        return res.redirect('/admin');
+    }
+    return res.render('admin/productList', {
+        user: user
+    });
+}
+
+
 module.exports = {
     index,
     createCustomer,
@@ -200,5 +235,7 @@ module.exports = {
     nhanvienList,
     createNhanVien,
     serviceList,
-    userList
+    createProduct,
+    userList,
+    productList
 }

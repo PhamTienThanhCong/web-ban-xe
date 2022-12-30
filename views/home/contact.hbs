@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Thế giới xe</title>
+    <link rel="stylesheet" type="text/css" href="/public/css/lh2.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/cssweb.css">
+</head>
+
+<body>
+    
+    {{> header_user }}
+    
+    <article>
+        <section>
+            <div class="trai">
+                <form id="form-contact">
+                    <label>Họ Và Tên</label>
+                    <input type="text" id="name" name="name" placeholder="Nhập họ và tên...">
+
+                    <label>Số Điện thoại</label>
+                    <input type="text" id="email" name="phone" placeholder="Nhập email...">
+
+                    <input type="hidden" name="type" value="1">
+
+                    <label>Nội dung</label>
+                    <input type="text" id="email" name="title" placeholder="Tiêu đề">
+
+                    <textarea cols="112" rows="10" name="message" placeholder="Để lại tin nhắn của bạn"></textarea>
+
+                    <input type="submit" value="Gửi">
+                </form>
+            </div>
+        </section>
+        <div class="both111"></div>
+    </article>
+    
+    {{> footer_user }}
+
+</body>
+    <script>
+        $(document).ready(function () {
+            $('#form-contact').submit(function (e) {
+                e.preventDefault();
+                var data = $(this).serialize();
+                $.ajax({
+                    url: '/api/add-new-task',
+                    type: 'POST',
+                    data: data,
+                    dataType: 'json',
+                    success: function (data) {
+                        alert('Gửi thành công');
+                        $('#form-contact')[0].reset();
+                    },
+                    error: function (err) {
+                        console.log(err);
+                        alert('Gửi thất bại');
+                    }
+                })
+            })
+        })
+    </script>
+</html>

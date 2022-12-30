@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+
+<head>
+    <meta charset="utf-8">
+    <!-- InstanceBeginEditable name="doctitle" -->
+    <title>Thế giới xe</title>
+    <link rel="stylesheet" type="text/css" href="/public/css/cssweb.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/honda.css">
+    <!-- InstanceEndEditable -->
+    <!-- InstanceBeginEditable name="head" -->
+    <!-- InstanceEndEditable -->
+</head>
+
+<body>
+    {{> header_user }}
+
+    <article>
+        <section>
+            <!-- InstanceBeginEditable name="noidung" -->
+            <div id="loai">
+                <a href="honda-so.html"><b>{{ title }}</b></a>
+                <br>
+                <br>
+                <hr size=1 with=50% color="#fb895">
+            </div>
+            <div id="xe">
+            </div>
+            
+            <!-- InstanceEndEditable -->
+        </section>
+        <div class="both111"></div>
+    </article>
+    {{> footer_user }}
+</body>
+<!-- InstanceEnd -->
+<script>
+    const my_type = '{{ type}}'
+    $(document).ready(function () {
+        $.ajax ({
+            url: '/api/productList',
+            method: 'GET',
+            success: function (data) {
+                data = data.data
+                const root = document.getElementById('xe')
+                for (let i = 0; i < data.length; i++) {
+                    console.log(data[i].type == my_type)
+                    if (data[i].type == my_type) {
+                        const div = document.createElement('div')
+                        div.className = 'xe1'
+                        div.innerHTML = `
+                            <a href="/xem-san-pham/${data[i]._id}"><img src="${data[i].imagePreview}"></a>
+                            <a href="/xem-san-pham/${data[i]._id}"><b>${data[i].name}</b></a>
+                            <br>
+                            <b>${data[i].price} VNĐ</b>
+                        `
+                        root.appendChild(div)
+                    }
+                }
+            }
+        })
+    });
+</script>
+
+</html>

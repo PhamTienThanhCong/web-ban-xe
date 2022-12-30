@@ -15,5 +15,8 @@ router.get('/danh-sach-nguoi-dung', index_home.userList);
 router.get('/danh-sach-nhan-vien', index_home.nhanvienList);
 
 router.get('/quan-ly-dich-vu' , index_home.serviceList);
+router.get('/them-san-pham', index_home.createProduct);
+
+router.get("/danh-sach-san-pham", index_home.productList);
 
 module.exports = router;

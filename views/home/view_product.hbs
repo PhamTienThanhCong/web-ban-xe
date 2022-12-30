@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+<!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+
+<head>
+    <meta charset="utf-8">
+    <!-- InstanceBeginEditable name="doctitle" -->
+    <title>Thế giới xe</title>
+    <link rel="stylesheet" type="text/css" href="/public/css/cssweb.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/CUB.css">
+    <script src="/public/java/chitiet.js"></script>
+    <!-- InstanceEndEditable -->
+    <!-- InstanceBeginEditable name="head" -->
+    <!-- InstanceEndEditable -->
+</head>
+
+<body>
+    {{> header_user }}
+
+    <article>
+        <section>
+            <!-- InstanceBeginEditable name="noidung" -->
+            <div class="wraper">
+                <div class="slide">
+                    <div class="slide_1 ra">
+                        <img src="{{ product.imageSlider }}" alt="" width="1100" height="200 ">
+                    </div>
+                    <div class="slide_2">
+                        <img src="{{ product.imageSlider }}" alt="" width="1100"
+                            height="200 ">
+                    </div>
+
+                </div>
+                <div class="nut">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+            <br><br><br>
+            <div id="kc" align="center">
+                <hr size=3 with=20% color="#999999"><br>
+                <a href="#">ĐẶC TÍNH NỔI BẬT</a><br><br>
+                <hr size=3 with=20% color="#999999"><br>
+                <br><br>
+            </div>
+            <div class="font" align="left">
+                <div class="do">
+                    <h4>Thiết kế xe {{ product.name }}</h4>
+                </div><br><br>
+                {{!-- print raw --}}
+                {{{ product.description}}}
+                <br><br>
+                <div class="hinh" align="center">
+                    <img class="hinhxe" src="{{ product.imagePreview }}">
+                    <p><span class="gia">43.000.000 VNĐ</span></p>
+                    <button class="chonmua">Xem sau</button>
+                    <h5>Đặt lịch xem xe</h5>
+                    <div class="trai1">
+                      <form id="form-contact">
+                        <label>Họ Và Tên</label>
+                        <input type="text" id="name" name="name" placeholder="Nhập họ và tên...">
+
+                        <label>Số Điện thoại</label>
+                        <input type="text" id="email" name="phone" placeholder="Nhập email...">
+
+                        <input type="hidden" name="type" value="1">
+
+                        <label>Nội dung</label>
+                        <input type="text" id="email" name="title" placeholder="Tiêu đề">
+
+                        <textarea cols="100" rows="10" name="message" placeholder="Để lại tin nhắn của bạn"></textarea>
+
+                        <input type="submit" value="Gửi">
+                    </form>
+                    </div>
+                  <div class="both111"></div>
+                </div>
+                <br><br><br>
+
+                <div id="kc" align="left">
+                    <hr size=3 with=20% color="#999999"><br>
+                    <a href="#">THÔNG SỐ KỸ THUẬT</a>
+                    <br><br>
+                    <img src="https://www.suzuki.com.vn/images/2w-layout/GZ/2.jpg">
+                  </div>
+                  </div><br><br>
+                  <div class="bang">
+                    <table width="900" cellspacing="10" cellpadding="0" align="left">
+                      <tr class="xanh">
+                        <td colspan="3">KÍCH THƯỚC VÀ TRỌNG LƯỢNG</td>
+                      </tr>
+                      <tr class="xam">
+                        <td width="625">Chiều dài tổng thể</td>
+                        <td width="98">mm</td>
+                        <td width="149">{{ product.specifications.chieu_dai_tong_the }}</td>
+                      </tr>
+                      <tr class="trang">
+                        <td>Chiều rộng tổng thể</td>
+                        <td>mm</td>
+                        <td>{{ product.specifications.chieu_rong_tong_the }}</td>
+                      </tr>
+                      <tr class="xam">
+                        <td>Chiều cao tổng thể</td>
+                        <td>mm</td>
+                        <td>{{ product.specifications.chieu_cao_tong_the }}</td>
+                      </tr>
+                      <tr class="trang">
+                        <td>Độ cao yên</td>
+                        <td>mm</td>
+                        <td>{{ product.specifications.do_cao_yen }}</td>
+                      </tr>
+                      <tr class="xam">
+                        <td>Khoảng cách gầm xe với mặt đất</td>
+                        <td>mm</td>
+                        <td>{{ product.specifications.khoang_cach_gam }}</td>
+                      </tr>
+                      <tr class="trang">
+                        <td>Trọng lượng thân</td>
+                        <td>Kg</td>
+                        <td>{{ product.specifications.trong_luong }}</td>
+                      </tr>
+                    </table>
+            
+                  </div>
+                  <br><br><br><br><br>
+                  <div class="bang">
+                    <table width="900" cellspacing="10" cellpadding="0" align="left">
+                      <tr class="xanh">
+                        <td colspan="2">ĐỘNG CƠ</td>
+                      </tr>
+                      <tr class="xam">
+                        <td width="625">Loại động cơ</td>
+                        <td width="155	">{{ product.specifications.dong_co }}</td>
+                      </tr>
+                      <tr class="trang">
+                        <td>Đường kính và hành trình piston</td>
+                        <td>{{ product.specifications.duong_kinh_piston }}</td>
+                      </tr>
+                      <tr class="xam">
+                        <td>Dung tích xy-lanh</td>
+                        <td>150 cm3</td>
+                      </tr>
+                      <tr class="trang">
+                        <td>Công suất tối đa</td>
+                        <td>{{ product.specifications.cong_suat }} vòng / phút</td>
+                      </tr>
+                      <tr class="xam">
+                        <td>Mô-men xoắn cực đại</td>
+                        <td>{{ product.specifications.momen_xoan }} vòng / phút</td>
+                      </tr>
+            
+                      <tr class="trang">
+                        <td>Hệ thống cung cấp nhiên liệu</td>
+                        <td>{{ product.specifications.cung_cap_nhien_lie }}</td>
+                      </tr>
+                      
+                    </table>
+            
+                  </div>
+                  <br><br><br><br><br>
+                  <div class="bang">
+                    <table width="900" cellspacing="10" cellpadding="0" align="left">
+                      <tr class="xanh">
+                        <td colspan="2">KHUNG SƯỜN</td>
+                      </tr>
+                      <tr class="xam">
+                        <td width="625">Phuộc nhún trước</td>
+                        <td width="149">Lò xo trụ, giảm chấn thủy lực</td>
+                      </tr>
+                      <tr class="trang">
+                        <td>Phuộc nhún sau</td>
+                        <td>Gắp, lò xo cuộn, giảm chấn thủy lực</td>
+                      </tr>
+                      <tr class="xam">
+                        <td>Hệ thống phanh trước</td>
+                        <td>Đĩa</td>
+                      </tr>
+                      <tr class="trang">
+                        <td>Hệ thống phanh sau</td>
+                        <td>Cơ</td>
+                      </tr>
+            
+                      <tr class="xam">
+                        <td>Đồng hồ công-tơ-mét</td>
+                        <td>Kỹ thuật số LCD toàn phần</td>
+                      </tr>
+                      <tr class="trang">
+                        <td>Dung tích bình xăng</td>
+                        <td>12 L</td>
+                      </tr>
+                      <tr class="xam">
+                        <td>Bình điện</td>
+                        <td>12V - 6Ah</td>
+                      </tr>
+                    </table>
+            
+                  </div>
+                <!-- InstanceEndEditable -->
+        </section>
+        <div class="both111"></div>
+    </article>
+    {{> footer_user }}
+</body>
+<!-- InstanceEnd -->
+<script>
+$('#form-contact').submit(function (e) {
+    e.preventDefault();
+    var data = $(this).serialize();
+    $.ajax({
+        url: '/api/add-new-task',
+        type: 'POST',
+        data: data,
+        dataType: 'json',
+        success: function (data) {
+            alert('Gửi thành công');
+            $('#form-contact')[0].reset();
+        },
+        error: function (err) {
+            console.log(err);
+            alert('Gửi thất bại');
+        }
+    })
+})
+</script>
+
+</html>

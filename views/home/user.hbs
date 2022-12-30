@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/user.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/cssweb.css">
+</head>
+
+<body>
+    <header>
+        <img src="/public/images/logo.png">
+    </header>
+    <div class="trai">
+    </div>
+    <nav>
+        <div id="menu">
+            <ul>
+                <li><a href="index.html" target="_self">TRANG CHỦ</a></li>
+                <li><a href="gioithieu.html" target="_self">GIỚI THIỆU </a></li>
+                <li>
+                    <a href="#" target="_self">DANH MỤC SẢN PHẨM</a>
+                    <ul>
+                        <li>
+                            <img class="bieutuong" src="/public/images/honda-icb.png"><a href="honda.html"> XE HONDA</a>
+                            <ul>
+                                <li><a href="honda-so.html">XE SỐ</a></li>
+                                <li><a href="honda-tayga.html">XE TAY GA</a></li>
+                                <li><a href="honda-taycon.html">XE CÔN TAY</a></li>
+                                <li><a href="honda-moto.html">XE MÔ TÔ</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <img class="bieutuong" src="/public/images/yamaha-icb.png"><a href="yamaha.html"> XE YAMAHA</a>
+                            <ul>
+                                <li><a href="yamaha-so.html">XE SỐ</a></li>
+                                <li><a href="yamaha-tayga.html">XE TAY GA</a></li>
+                                <li><a href="yamaha-moto.html">XE MÔ TÔ</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <img class="bieutuong" src="/public/images/suzuki-icb.png"><a href="suzuki.html"> XE SUZUKI</a>
+                            <ul>
+                                <li><a href="suzuki-so.html">XE SỐ</a></li>
+                                <li><a href="suzuki-tayga.html">XE TAY GA</a></li>
+                                <li><a href="suzuki-contay.html">XE CÔN TAY</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <img class="bieutuong" src="/public/images/sym-icb.png"><a href="sym.html"> XE SYM</a>
+                            <ul>
+                                <li><a href="sym-so.html">XE SỐ</a></li>
+                                <li><a href="sym-tayga.html">XE TAY GA</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <img class="bieutuong" src="/public/images/piaggio-icb.png"><a href="piaggio.html"> XE PIAGGIO</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="Lienhe2.html" target="_self">LIÊN HỆ</a></li>
+                <ul>
+        </div>
+        <div id="phai">
+        </div>
+        <div class="tim">
+            <form>
+                <input type="text" autofocus placeholder="Tìm kiếm xe, giá xe...">
+                <input type="submit" value="Tìm kiếm">
+            </form>
+        </div>
+        <!-- <div class="phai1"><a href="dangnhap.html">ĐĂNG NHẬP</a></div> -->
+        <div class="phai1"><a href="user.html"><i class="fa-solid fa-user" style="margin-right: 10px;"></i>Dũng Phạm</a></div>
+    </nav>
+
+    <div class="container emp-profile">
+        <form method="post">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="profile-img">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog"
+                            alt="" />
+                        <div class="file btn btn-lg btn-primary">
+                            Change Photo
+                            <input type="file" name="file" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="profile-head">
+                        <h5>
+                            Kshiti Ghelani
+                        </h5>
+                        <h6>
+                            Tham gia vào ngày 12/12/2022
+                        </h6>
+                        <br>
+                        <br>
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                                    aria-controls="home" aria-selected="true">Thông tin</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="damua.html" role="tab"
+                                    aria-controls="profile" aria-selected="false">Đã Mua</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="profile-work">
+                        <p>WORK LINK</p>
+                        <a href="">Website Link</a><br />
+                        <a href="">Bootsnipp Profile</a><br />
+                        <a href="">Bootply Profile</a>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="tab-content profile-tab" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>User Id</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>Kshiti123</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Name</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>Kshiti Ghelani</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Email</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>kshitighelani@gmail.com</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Phone</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>123 456 7890</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <footer>
+        <div >
+            <div style="display: flex;    justify-content: space-around;">
+                <div >
+                    <h5>FB.</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+                    <p>&copy; Copyrights. All rights reserved. <a class="text-primary" href="#">Bootstrapious.com</a></p>
+                </div>
+                <div>
+                    <h5>Quick links</h5>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Get started</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5>Quick links</h5>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Get started</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5>Newsletter</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

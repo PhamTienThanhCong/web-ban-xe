@@ -3,8 +3,10 @@ const Schema = mongoose.Schema;
 
 const TaskSchema = new Schema({
     name: String,
-    type: Object,
-    description: Object,
+    type: String,
+    imagePreview: String,
+    imageSlider: String,
+    description: String,
     specifications: Object,
     price: Number,
 });

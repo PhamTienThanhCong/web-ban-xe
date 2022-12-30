@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<!-- InstanceBegin template="/Templates/template.dwt" codeOutsideHTMLIsLocked="false" -->
+
+<head>
+    <meta charset="utf-8">
+    <!-- InstanceBeginEditable name="doctitle" -->
+    <title>Thế giới xe</title>
+    <link rel="stylesheet" type="text/css" href="/public/css/cssweb.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/trangchu.css">
+    <script src="/public/java/chitiet.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- InstanceEndEditable -->
+    <!-- InstanceBeginEditable name="head" -->
+    <!-- InstanceEndEditable -->
+</head>
+
+<body>
+    
+    {{> header_user }}
+
+    <article>
+        <section>
+            <!-- InstanceBeginEditable name="noidung" -->
+            <div class="wraper">
+                <div class="slide">
+                    <div class="slide_1 ra">
+                        <img src="/public/images/FB.jpg" alt="" width="1100px" height="200 ">
+                    </div>
+                    <div class="slide_2">
+                        <img src="https://www.suzuki.com.vn/images/GD110/BANNER-LAI-THU-GD110-APRIL.png" alt=""
+                            width="1100px" height="200 ">
+                    </div>
+                    <div class="slide_3">
+                        <img src="https://www.suzuki.com.vn/images/GSX150-Bandit/BANDIT-TEST-DRIVE-BANNER.png" alt=""
+                            width="1100px" height="200 ">
+                    </div>
+
+
+                </div>
+                <div class="nut">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+            <br><br>
+            <div id="danhsachxe">
+                
+            </div>
+            <!-- InstanceEndEditable -->
+        </section>
+        <div class="both111"></div>
+    </article>
+    
+    {{> footer_user }}
+
+</body>
+<!-- InstanceEnd -->
+<script>
+    $(document).ready(function () {
+        $.ajax ({
+            url: '/api/productList',
+            method: 'GET',
+            success: function (data) {
+                data = data.data
+                const root = document.getElementById('danhsachxe')
+                let dem = 1;
+                for (let i = 0; i < data.length; i++) {
+                    if (dem == 10){
+                        break
+                    }
+                    dem ++;
+                    const div = document.createElement('div')
+                    div.className = 'xe1'
+                    div.innerHTML = `
+                        <a href="/xem-san-pham/${data[i]._id}"><img src="${data[i].imagePreview}"></a>
+                        <a href="/xem-san-pham/${data[i]._id}"><b>${data[i].name}</b></a>
+                        <br>
+                        <b>${data[i].price} VNĐ</b>
+                    `
+                    root.appendChild(div)
+                    
+                }
+            }
+        })
+    });
+</script>
+</html>
